@@ -1,0 +1,214 @@
+.zinn-wpapi-admin {
+    background: #111;
+    color: #faf8ef;
+    padding: 32px;
+    border-radius: 16px;
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    max-width: 950px;
+    margin-top: 24px;
+}
+
+.zinn-wpapi-admin .zinn-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 16px;
+}
+
+.zinn-wpapi-admin .zinn-logo {
+    width: 58px;
+    height: 58px;
+    border-radius: 12px;
+    background: #B8860B;
+    box-shadow: 0 0 16px #B8860B44;
+    border: 2px solid #B8860B;
+}
+
+.zinn-wpapi-admin h1 {
+    font-size: 2.2rem;
+    color: #B8860B;
+    margin: 0;
+    font-weight: 700;
+}
+
+.zinn-wpapi-admin h2 {
+    color: #FFD700;
+    margin-top: 28px;
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.zinn-wpapi-admin h3 {
+    color: #B8860B;
+    opacity: 0.8;
+    margin-top: 18px;
+    font-size: 1.13rem;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.zinn-wpapi-admin .zinn-pt-label {
+    color: #FFD700 !important;
+    font-size: 1.09rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em;
+    opacity: 0.8;
+}
+
+.zinn-wpapi-admin .zinn-links {
+    margin: 16px 0 28px;
+}
+
+.zinn-wpapi-admin .zinn-btn {
+    display: inline-block;
+    padding: 7px 24px;
+    margin-right: 8px;
+    background: #B8860B;
+    color: #111 !important;
+    border-radius: 7px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 8px #B8860B33;
+    transition: background 0.2s;
+}
+
+.zinn-wpapi-admin .zinn-btn:hover {
+    background: #c7a146;
+}
+
+.zinn-wpapi-admin .zinn-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #191919;
+    margin-bottom: 36px;
+}
+
+.zinn-wpapi-admin .zinn-table th, 
+.zinn-wpapi-admin .zinn-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #333;
+    font-size: 1rem;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.zinn-wpapi-admin .zinn-table th {
+    background: #222019;
+    color: #FFD700;
+    font-weight: 700;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.zinn-wpapi-admin .zinn-table tr:last-child td {
+    border-bottom: none;
+}
+
+.zinn-wpapi-admin .zinn-table span {
+    font-size: 0.97rem;
+}
+
+.zinn-wpapi-admin .zinn-badge {
+    display: inline-block;
+    min-width: 56px;
+    text-align: center;
+    padding: 4px 0;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 0.97rem;
+}
+
+.zinn-wpapi-admin .zinn-badge.exposed {
+    background: #B8860B;
+    color: #111;
+}
+
+.zinn-wpapi-admin .zinn-badge.not-exposed {
+    background: #333;
+    color: #fff;
+}
+
+.zinn-wpapi-admin .zinn-meta-warning {
+    color: #ffb300;
+    font-weight: bold;
+    background: #1a1a0c;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* NOTICE SECTION - Fixed specificity */
+.zinn-wpapi-admin .zinn-notice {
+    background: rgba(255, 215, 0, 0.1) !important;
+    border: 2px solid #FFD700 !important;
+    border-left: 6px solid #FFD700 !important;
+    padding: 15px 20px !important;
+    margin: 20px 0 !important;
+    border-radius: 8px !important;
+    font-size: 1.1em !important;
+    color: #FFD700 !important;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2) !important;
+}
+
+.zinn-wpapi-admin .zinn-notice strong {
+    font-size: 1.2em !important;
+    color: #FFD700 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3) !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    display: inline !important;
+    margin: 0 !important;
+}
+
+/* SUPPORT SECTION - Fixed specificity */
+.zinn-wpapi-admin .zinn-support-section {
+    margin: 48px 0 0 0 !important;
+    padding: 20px 24px 16px 24px !important;
+    background: #181610 !important;
+    border-radius: 12px !important;
+    border-left: 7px solid #B8860B !important;
+    color: #FFD700 !important;
+    font-size: 1.12rem !important;
+    max-width: 670px !important;
+}
+
+.zinn-wpapi-admin .zinn-support-section ul {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    padding-left: 20px !important;
+    color: #FFD700 !important;
+}
+
+.zinn-wpapi-admin .zinn-support-section li {
+    color: #FFD700 !important;
+    margin-bottom: 5px;
+}
+
+.zinn-wpapi-admin .zinn-support-section a {
+    color: #FFD700 !important;
+    text-decoration: underline !important;
+}
+
+.zinn-wpapi-admin .zinn-support-section strong {
+    color: #B8860B !important;
+    background: transparent !important;
+    padding: 8px 12px !important;
+    border: 2px solid #B8860B !important;
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    display: block !important;
+    margin-bottom: 10px !important;
+    border-radius: 4px !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8) !important;
+}
+
+/* Remove inline styles from ul - add this to override inline styles */
+.zinn-wpapi-admin .zinn-support-section ul[style] {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
