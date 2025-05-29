@@ -14,8 +14,8 @@ class Zinn_WPAPI_Admin {
 
     public function admin_menu() {
         add_menu_page(
-            __('API Manager', 'zinn-wp-rest-api-manager'),
-            __('API Manager', 'zinn-wp-rest-api-manager'),
+            __('API Manager', 'zinn-digital-wp-rest-api-manager'),
+            __('API Manager', 'zinn-digital-wp-rest-api-manager'),
             'manage_options',
             'zinn-wpapi-manager',
             [$this, 'admin_page'],
@@ -35,35 +35,36 @@ class Zinn_WPAPI_Admin {
     }
 
     public function admin_page() {
+        $logo_url = ZINN_WPAPI_PLUGIN_URL . 'assets/zinn-logo.png';
         ?>
         <div class="zinn-wpapi-admin">
             <div class="zinn-header">
-                <img src="<?php echo esc_url(ZINN_WPAPI_PLUGIN_URL . 'assets/zinn-logo.png'); ?>" alt="Zinn Digital" class="zinn-logo" />
-                <h1>Zinn Digital<sup>™</sup> WP REST API Manager</h1>
+                <img src="<?php echo esc_url($logo_url); ?>" alt="<?php esc_attr_e('Zinn Digital', 'zinn-digital-wp-rest-api-manager'); ?>" class="zinn-logo" />
+                <h1><?php esc_html_e('Zinn Digital', 'zinn-digital-wp-rest-api-manager'); ?><sup>™</sup> <?php esc_html_e('WP REST API Manager', 'zinn-digital-wp-rest-api-manager'); ?></h1>
             </div>
             <div class="zinn-links">
-    <a class="zinn-btn" href="https://zinndigital.com" target="_blank">
-        ⚡ Zinn WebHosting
-    </a>
-    <a class="zinn-btn" href="https://zinnhub.com" target="_blank">
-        💼 Zinn Hub Marketplace
-    </a>
-</div>
+                <a class="zinn-btn" href="https://zinndigital.com" target="_blank">
+                    <?php esc_html_e('⚡ Zinn WebHosting', 'zinn-digital-wp-rest-api-manager'); ?>
+                </a>
+                <a class="zinn-btn" href="https://zinnhub.com" target="_blank">
+                    <?php esc_html_e('💼 Zinn Hub Marketplace', 'zinn-digital-wp-rest-api-manager'); ?>
+                </a>
+            </div>
             <div class="zinn-notice">
-    <strong>⚠️ Important Note:</strong> Custom fields (meta) can only be detected if at least <strong>one item</strong> is published in that post type. If nothing appears, add a post first!
+                <strong><?php esc_html_e('⚠️ Important Note:', 'zinn-digital-wp-rest-api-manager'); ?></strong> <?php esc_html_e('Custom fields (meta) can only be detected if at least', 'zinn-digital-wp-rest-api-manager'); ?> <strong><?php esc_html_e('one item', 'zinn-digital-wp-rest-api-manager'); ?></strong> <?php esc_html_e('is published in that post type. If nothing appears, add a post first!', 'zinn-digital-wp-rest-api-manager'); ?>
             </div>
             <?php $this->render_sections(); ?>
         
-    <div class="zinn-support-section"><br>
-        <strong>Need Support or Help?</strong><br>
-        If you need help with our plugin, please email us at <a href="mailto:office@zinndigital.com">office@zinndigital.com</a>.<br>
-        <ul>
-            <li>Please include full details of any errors or issues you are experiencing.</li>
-            <li>Attach screenshots where possible to help us understand your situation.</li>
-        </ul>
-        We’re always happy to help and will respond as quickly as possible!
-    </div>
-
+            <div class="zinn-support-section"><br>
+                <strong><?php esc_html_e('Need Support or Help?', 'zinn-digital-wp-rest-api-manager'); ?></strong><br>
+                <?php esc_html_e('If you need help with our plugin, please email us at', 'zinn-digital-wp-rest-api-manager'); ?> <a href="mailto:office@zinndigital.com">office@zinndigital.com</a>.<br>
+                <ul>
+                    <li><?php esc_html_e('Please include full details of any errors or issues you are experiencing.', 'zinn-digital-wp-rest-api-manager'); ?></li>
+                    <li><?php esc_html_e('Attach screenshots where possible to help us understand your situation.', 'zinn-digital-wp-rest-api-manager'); ?></li>
+                </ul>
+                <?php esc_html_e("We're always happy to help and will respond as quickly as possible!", 'zinn-digital-wp-rest-api-manager'); ?>
+            </div>
+        </div>
         <?php
     }
 
@@ -79,10 +80,10 @@ class Zinn_WPAPI_Admin {
             else $custom_pts[$pt->name] = $pt;
         }
 
-        echo '<h2>Core Post Types</h2>';
+        echo '<h2>' . esc_html__('Core Post Types', 'zinn-digital-wp-rest-api-manager') . '</h2>';
         $this->render_pt_table($core_pts, 'core_post_types', $options);
 
-        echo '<h2>Custom Post Types</h2>';
+        echo '<h2>' . esc_html__('Custom Post Types', 'zinn-digital-wp-rest-api-manager') . '</h2>';
         $this->render_pt_table($custom_pts, 'custom_post_types', $options);
 
         // Taxonomies: Core and Custom
@@ -94,10 +95,10 @@ class Zinn_WPAPI_Admin {
             else $custom_taxes[$tax->name] = $tax;
         }
 
-        echo '<h2>Core Taxonomies</h2>';
+        echo '<h2>' . esc_html__('Core Taxonomies', 'zinn-digital-wp-rest-api-manager') . '</h2>';
         $this->render_tax_table($core_taxes, 'core_taxonomies', $options);
 
-        echo '<h2>Custom Taxonomies</h2>';
+        echo '<h2>' . esc_html__('Custom Taxonomies', 'zinn-digital-wp-rest-api-manager') . '</h2>';
         $this->render_tax_table($custom_taxes, 'custom_taxonomies', $options);
 
         // Meta Section
@@ -105,32 +106,38 @@ class Zinn_WPAPI_Admin {
     }
 
     private function render_pt_table($pts, $section, $options) {
-        if(empty($pts)) { echo '<p>None found.</p>'; return; }
-        echo '<table class="zinn-table"><thead><tr><th>Name</th><th>REST Base</th><th>REST Exposed?</th><th>Toggle</th></tr></thead><tbody>';
+        if(empty($pts)) { 
+            echo '<p>' . esc_html__('None found.', 'zinn-digital-wp-rest-api-manager') . '</p>'; 
+            return; 
+        }
+        echo '<table class="zinn-table"><thead><tr><th>' . esc_html__('Name', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('REST Base', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('REST Exposed?', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('Toggle', 'zinn-digital-wp-rest-api-manager') . '</th></tr></thead><tbody>';
         foreach($pts as $pt) {
             $saved = isset($options[$section][$pt->name]) ? $options[$section][$pt->name] : $pt->show_in_rest;
             $exposed = $saved ? 1 : 0;
             echo '<tr>
                 <td>' . esc_html($pt->labels->singular_name) . ' <span>(' . esc_html($pt->name) . ')</span></td>
                 <td>' . esc_html($pt->rest_base ?: '-') . '</td>
-                <td><span class="zinn-badge '.($exposed ? 'exposed':'not-exposed').'">'.($exposed ? 'Yes':'No').'</span></td>
-                <td><button class="zinn-rest-toggle" data-type="pt" data-key="'.esc_attr($pt->name).'" data-section="'.$section.'" data-exposed="'.$exposed.'">'.($exposed ? 'Unexpose':'Expose').'</button></td>
+                <td><span class="zinn-badge '.($exposed ? 'exposed':'not-exposed').'">'.($exposed ? esc_html__('Yes', 'zinn-digital-wp-rest-api-manager') : esc_html__('No', 'zinn-digital-wp-rest-api-manager')).'</span></td>
+                <td><button class="zinn-rest-toggle" data-type="pt" data-key="'.esc_attr($pt->name).'" data-section="'.esc_attr($section).'" data-exposed="'.esc_attr($exposed).'">'.($exposed ? esc_html__('Unexpose', 'zinn-digital-wp-rest-api-manager') : esc_html__('Expose', 'zinn-digital-wp-rest-api-manager')).'</button></td>
             </tr>';
         }
         echo '</tbody></table>';
     }
 
     private function render_tax_table($taxes, $section, $options) {
-        if(empty($taxes)) { echo '<p>None found.</p>'; return; }
-        echo '<table class="zinn-table"><thead><tr><th>Name</th><th>REST Base</th><th>REST Exposed?</th><th>Toggle</th></tr></thead><tbody>';
+        if(empty($taxes)) { 
+            echo '<p>' . esc_html__('None found.', 'zinn-digital-wp-rest-api-manager') . '</p>'; 
+            return; 
+        }
+        echo '<table class="zinn-table"><thead><tr><th>' . esc_html__('Name', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('REST Base', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('REST Exposed?', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('Toggle', 'zinn-digital-wp-rest-api-manager') . '</th></tr></thead><tbody>';
         foreach($taxes as $tax) {
             $saved = isset($options[$section][$tax->name]) ? $options[$section][$tax->name] : $tax->show_in_rest;
             $exposed = $saved ? 1 : 0;
             echo '<tr>
                 <td>' . esc_html($tax->labels->singular_name) . ' <span>(' . esc_html($tax->name) . ')</span></td>
                 <td>' . esc_html($tax->rest_base ?: '-') . '</td>
-                <td><span class="zinn-badge '.($exposed ? 'exposed':'not-exposed').'">'.($exposed ? 'Yes':'No').'</span></td>
-                <td><button class="zinn-rest-toggle" data-type="tax" data-key="'.esc_attr($tax->name).'" data-section="'.$section.'" data-exposed="'.$exposed.'">'.($exposed ? 'Unexpose':'Expose').'</button></td>
+                <td><span class="zinn-badge '.($exposed ? 'exposed':'not-exposed').'">'.($exposed ? esc_html__('Yes', 'zinn-digital-wp-rest-api-manager') : esc_html__('No', 'zinn-digital-wp-rest-api-manager')).'</span></td>
+                <td><button class="zinn-rest-toggle" data-type="tax" data-key="'.esc_attr($tax->name).'" data-section="'.esc_attr($section).'" data-exposed="'.esc_attr($exposed).'">'.($exposed ? esc_html__('Unexpose', 'zinn-digital-wp-rest-api-manager') : esc_html__('Expose', 'zinn-digital-wp-rest-api-manager')).'</button></td>
             </tr>';
         }
         echo '</tbody></table>';
@@ -138,25 +145,38 @@ class Zinn_WPAPI_Admin {
 
     public function render_meta_section($options, $custom_pts) {
         global $wpdb;
-        echo '<h2>Custom Fields (Meta)</h2>';
+        echo '<h2>' . esc_html__('Custom Fields (Meta)', 'zinn-digital-wp-rest-api-manager') . '</h2>';
+        
         foreach ($custom_pts as $pt_name => $pt) {
-            $query = $wpdb->prepare(
-                "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id WHERE p.post_type=%s AND meta_key NOT LIKE '\_%' LIMIT 100",
-                $pt_name
-            );
-            $meta_keys = $wpdb->get_col($query);
-            echo '<h3 class="zinn-pt-label">'.esc_html($pt->labels->singular_name).' <span>('.esc_html($pt_name).')</span></h3>';
+            // Use caching for performance
+            $cache_key = 'zinn_wpapi_meta_' . $pt_name;
+            $meta_keys = wp_cache_get($cache_key);
+            
+            if (false === $meta_keys) {
+                $query = $wpdb->prepare(
+                    "SELECT DISTINCT meta_key FROM {$wpdb->postmeta} pm 
+                     INNER JOIN {$wpdb->posts} p ON p.ID = pm.post_id 
+                     WHERE p.post_type = %s AND meta_key NOT LIKE %s 
+                     LIMIT 100",
+                    $pt_name,
+                    $wpdb->esc_like('_') . '%'
+                );
+                $meta_keys = $wpdb->get_col($query);
+                wp_cache_set($cache_key, $meta_keys, '', 300); // Cache for 5 minutes
+            }
+            
+            echo '<h3 class="zinn-pt-label">' . esc_html($pt->labels->singular_name) . ' <span>(' . esc_html($pt_name) . ')</span></h3>';
             if(empty($meta_keys)) {
-                echo '<div class="zinn-meta-warning">No meta fields detected. Please add/publish at least one item in this post type to detect its custom fields!</div>';
+                echo '<div class="zinn-meta-warning">' . esc_html__('No meta fields detected. Please add/publish at least one item in this post type to detect its custom fields!', 'zinn-digital-wp-rest-api-manager') . '</div>';
                 continue;
             }
-            echo '<table class="zinn-table"><thead><tr><th>Meta Key</th><th>REST Exposed?</th><th>Toggle</th></tr></thead><tbody>';
+            echo '<table class="zinn-table"><thead><tr><th>' . esc_html__('Meta Key', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('REST Exposed?', 'zinn-digital-wp-rest-api-manager') . '</th><th>' . esc_html__('Toggle', 'zinn-digital-wp-rest-api-manager') . '</th></tr></thead><tbody>';
             foreach($meta_keys as $meta_key) {
                 $toggled = !empty($options['meta'][$pt_name]) && in_array($meta_key, $options['meta'][$pt_name]);
                 echo '<tr>
                     <td>' . esc_html($meta_key) . '</td>
-                    <td><span class="zinn-badge '.($toggled ? 'exposed':'not-exposed').'">'.($toggled ? 'Yes':'No').'</span></td>
-                    <td><button class="zinn-rest-toggle" data-type="meta" data-key="'.esc_attr($meta_key).'" data-section="'.esc_attr($pt_name).'" data-exposed="'.($toggled?1:0).'">'.($toggled?'Unexpose':'Expose').'</button></td>
+                    <td><span class="zinn-badge '.($toggled ? 'exposed':'not-exposed').'">'.($toggled ? esc_html__('Yes', 'zinn-digital-wp-rest-api-manager') : esc_html__('No', 'zinn-digital-wp-rest-api-manager')).'</span></td>
+                    <td><button class="zinn-rest-toggle" data-type="meta" data-key="'.esc_attr($meta_key).'" data-section="'.esc_attr($pt_name).'" data-exposed="'.esc_attr($toggled?1:0).'">'.($toggled ? esc_html__('Unexpose', 'zinn-digital-wp-rest-api-manager') : esc_html__('Expose', 'zinn-digital-wp-rest-api-manager')).'</button></td>
                 </tr>';
             }
             echo '</tbody></table>';
@@ -165,11 +185,15 @@ class Zinn_WPAPI_Admin {
 
     public function ajax_toggle_rest_status() {
         check_ajax_referer('zinnwpapi_toggle');
-        if (!current_user_can('manage_options')) wp_send_json_error('No permission');
-        $type = sanitize_text_field($_POST['type'] ?? '');
-        $key = sanitize_text_field($_POST['key'] ?? '');
-        $section = sanitize_text_field($_POST['section'] ?? '');
+        if (!current_user_can('manage_options')) {
+            wp_send_json_error(__('No permission', 'zinn-digital-wp-rest-api-manager'));
+        }
+        
+        $type = sanitize_text_field(wp_unslash($_POST['type'] ?? ''));
+        $key = sanitize_text_field(wp_unslash($_POST['key'] ?? ''));
+        $section = sanitize_text_field(wp_unslash($_POST['section'] ?? ''));
         $exposed = isset($_POST['exposed']) && $_POST['exposed'] == '1';
+        
         $options = get_option($this->option_name, []);
 
         // Toggle logic by type
@@ -187,13 +211,19 @@ class Zinn_WPAPI_Admin {
                 $options['meta'][$section] = array_unique($options['meta'][$section]);
             }
         }
+        
         update_option($this->option_name, $options);
-        wp_send_json_success(['message' => 'Updated!']);
+        
+        // Clear cache when settings change
+        wp_cache_delete('zinn_wpapi_meta_' . $section);
+        
+        wp_send_json_success(['message' => __('Updated!', 'zinn-digital-wp-rest-api-manager')]);
     }
 
     public function apply_rest_toggles() {
         $options = get_option($this->option_name, []);
-        // CPTs
+        
+        // Core Post Types
         if (!empty($options['core_post_types'])) {
             add_filter('register_post_type_args', function($args, $post_type) use ($options){
                 if (isset($options['core_post_types'][$post_type])) {
@@ -202,6 +232,8 @@ class Zinn_WPAPI_Admin {
                 return $args;
             }, 10, 2);
         }
+        
+        // Custom Post Types
         if (!empty($options['custom_post_types'])) {
             add_filter('register_post_type_args', function($args, $post_type) use ($options){
                 if (isset($options['custom_post_types'][$post_type])) {
@@ -210,7 +242,8 @@ class Zinn_WPAPI_Admin {
                 return $args;
             }, 10, 2);
         }
-        // Taxonomies
+        
+        // Core Taxonomies
         if (!empty($options['core_taxonomies'])) {
             add_filter('register_taxonomy_args', function($args, $taxonomy) use ($options){
                 if (isset($options['core_taxonomies'][$taxonomy])) {
@@ -219,6 +252,8 @@ class Zinn_WPAPI_Admin {
                 return $args;
             }, 10, 2);
         }
+        
+        // Custom Taxonomies
         if (!empty($options['custom_taxonomies'])) {
             add_filter('register_taxonomy_args', function($args, $taxonomy) use ($options){
                 if (isset($options['custom_taxonomies'][$taxonomy])) {
@@ -227,7 +262,8 @@ class Zinn_WPAPI_Admin {
                 return $args;
             }, 10, 2);
         }
-        // Meta
+        
+        // Meta Fields
         if (!empty($options['meta'])) {
             foreach ($options['meta'] as $pt => $meta_keys) {
                 foreach ($meta_keys as $meta_key) {

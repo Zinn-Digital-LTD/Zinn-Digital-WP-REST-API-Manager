@@ -32,14 +32,15 @@ function zinn_wpapi_remove_plugin_data() {
 	delete_transient( 'zinn_wpapi_post_types' );
 	delete_transient( 'zinn_wpapi_taxonomies' );
 	
+	// Clear any cached meta data
+	wp_cache_flush();
+	
 	// For multisite installations, remove options from all sites
 	if ( is_multisite() ) {
-		global $wpdb;
+		// Get all blog IDs using the sites API
+		$sites = get_sites( array( 'fields' => 'ids' ) );
 		
-		// Get all blog IDs
-		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
-		
-		foreach ( $blog_ids as $blog_id ) {
+		foreach ( $sites as $blog_id ) {
 			switch_to_blog( $blog_id );
 			
 			// Remove options for this site
@@ -47,6 +48,9 @@ function zinn_wpapi_remove_plugin_data() {
 			delete_transient( 'zinn_wpapi_cache' );
 			delete_transient( 'zinn_wpapi_post_types' );
 			delete_transient( 'zinn_wpapi_taxonomies' );
+			
+			// Clear cache for this site
+			wp_cache_flush();
 			
 			restore_current_blog();
 		}
@@ -66,15 +70,8 @@ function zinn_wpapi_remove_cron_events() {
  * Clean up user meta (if plugin stores any user-specific data in future)
  */
 function zinn_wpapi_remove_user_meta() {
-	global $wpdb;
-	
-	// Remove any user meta related to this plugin
-	$wpdb->delete(
-		$wpdb->usermeta,
-		array(
-			'meta_key' => 'zinn_wpapi_user_settings'
-		)
-	);
+	// Use delete_metadata instead of direct database query
+	delete_metadata( 'user', 0, 'zinn_wpapi_user_settings', '', true );
 }
 
 /**

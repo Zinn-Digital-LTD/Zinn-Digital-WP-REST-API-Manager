@@ -1,7 +1,7 @@
 === Zinn Digital™ WP Rest API Manager ===
 Contributors: zinndigital
 Donate link: https://zinndigital.com/
-Tags: rest api, admin, post types, taxonomies, custom fields, meta, api manager, acf, pods, meta box
+Tags: rest api, admin, post types, taxonomies, custom fields
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -9,6 +9,8 @@ Tested up to PHP: 8.4
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Manage and control REST API exposure for WordPress post types, taxonomies, and custom fields with an intuitive admin interface.
 
 == Description ==
 
@@ -38,11 +40,11 @@ Built for agencies, developers, and site owners who want secure, modular, no-cod
 
 == Frequently Asked Questions ==
 
-= Q: Why don’t I see custom fields (meta) for a post type? =
+= Q: Why don't I see custom fields (meta) for a post type? =
 A: Custom fields will only be detected if at least **one post** exists using those fields. Publish a post with the custom field filled in, then refresh the API Manager screen.
 
 = Q: Will this work with fields created by ACF, Meta Box, Pods, or other plugins? =
-A: Yes! As long as the field data is saved to WordPress’s standard post meta system, you can toggle REST API visibility for it.
+A: Yes! As long as the field data is saved to WordPress's standard post meta system, you can toggle REST API visibility for it.
 
 = Q: Is this plugin secure? =
 A: Absolutely! All admin actions require the proper permissions, nonces, and input sanitization.
@@ -87,4 +89,4 @@ along with this program; if not, see https://www.gnu.org/licenses/gpl-2.0.html
 
 == Support ==
 
-If you need help, email us at [office@zinndigital.com](mailto:office@zinndigital.com) with full details and screenshots. We’re always happy to help!
+If you need help, email us at [office@zinndigital.com](mailto:office@zinndigital.com) with full details and screenshots. We're always happy to help!
