@@ -9,11 +9,9 @@ Author URI: https://zinnhub.com/about-team/
 License: GPL2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: zinn-digital-wp-rest-api-manager
-Domain Path: /languages
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Network: false
 */
 
 // Prevent direct access
@@ -25,7 +23,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'ZINN_WPAPI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'ZINN_WPAPI_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ZINN_WPAPI_VERSION', '1.0.0' );
-define( 'ZINN_WPAPI_TEXT_DOMAIN', 'zinn-digital-wp-rest-api-manager' );
 
 /**
  * Main plugin class
@@ -56,7 +53,6 @@ class Zinn_WPAPI_Manager {
      */
     private function __construct() {
         add_action( 'plugins_loaded', array( $this, 'init' ) );
-        add_action( 'init', array( $this, 'load_textdomain' ) );
         
         // Activation and deactivation hooks
         register_activation_hook( __FILE__, array( $this, 'activate' ) );
@@ -71,17 +67,6 @@ class Zinn_WPAPI_Manager {
         if ( is_admin() ) {
             $this->load_admin();
         }
-    }
-
-    /**
-     * Load text domain for translations.
-     */
-    public function load_textdomain() {
-        load_plugin_textdomain(
-            ZINN_WPAPI_TEXT_DOMAIN,
-            false,
-            dirname( plugin_basename( __FILE__ ) ) . '/languages'
-        );
     }
 
     /**
