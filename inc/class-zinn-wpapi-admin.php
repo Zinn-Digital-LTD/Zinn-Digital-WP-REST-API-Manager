@@ -9,7 +9,22 @@ class Zinn_WPAPI_Admin {
         add_action('admin_menu', [$this, 'admin_menu']);
         add_action('admin_enqueue_scripts', [$this, 'admin_assets']);
         add_action('wp_ajax_zinn_toggle_rest_status', [$this, 'ajax_toggle_rest_status']);
-        add_action('init', [$this, 'apply_rest_toggles'], 99);
+        // Hook very early for filters
+        add_action('init', [$this, 'apply_rest_toggles'], 0);
+        // Also hook to modify already registered post types
+        add_action('rest_api_init', [$this, 'modify_registered_post_types'], 0);
+        // Check if we need to flush rewrite rules
+        add_action('admin_init', [$this, 'maybe_flush_rewrite_rules']);
+    }
+
+    /**
+     * Check if we need to flush rewrite rules
+     */
+    public function maybe_flush_rewrite_rules() {
+        if (get_transient('zinn_wpapi_flush_rewrite_rules')) {
+            flush_rewrite_rules();
+            delete_transient('zinn_wpapi_flush_rewrite_rules');
+        }
     }
 
     public function admin_menu() {
@@ -139,8 +154,16 @@ class Zinn_WPAPI_Admin {
             </thead>
             <tbody>
                 <?php foreach ($post_types as $pt_name => $pt): 
-                    $exposed = !empty($pt->show_in_rest);
-                    $rest_base = !empty($pt->rest_base) ? $pt->rest_base : '-';
+                    // Check if we have a saved state for this post type
+                    if (isset($options[$section][$pt_name])) {
+                        // Use saved state
+                        $exposed = (bool)$options[$section][$pt_name];
+                    } else {
+                        // Use current WordPress state
+                        $exposed = !empty($pt->show_in_rest);
+                    }
+                    
+                    $rest_base = !empty($pt->rest_base) ? $pt->rest_base : (!empty($pt->show_in_rest) ? $pt_name : '-');
                 ?>
                 <tr>
                     <td><span class="zinn-pt-label"><?php echo esc_html($pt->label); ?></span> <span>(<?php echo esc_html($pt_name); ?>)</span></td>
@@ -175,8 +198,16 @@ class Zinn_WPAPI_Admin {
             </thead>
             <tbody>
                 <?php foreach ($taxonomies as $tax_name => $tax): 
-                    $exposed = !empty($tax->show_in_rest);
-                    $rest_base = !empty($tax->rest_base) ? $tax->rest_base : '-';
+                    // Check if we have a saved state for this taxonomy
+                    if (isset($options[$section][$tax_name])) {
+                        // Use saved state
+                        $exposed = (bool)$options[$section][$tax_name];
+                    } else {
+                        // Use current WordPress state
+                        $exposed = !empty($tax->show_in_rest);
+                    }
+                    
+                    $rest_base = !empty($tax->rest_base) ? $tax->rest_base : (!empty($tax->show_in_rest) ? $tax_name : '-');
                 ?>
                 <tr>
                     <td><span class="zinn-pt-label"><?php echo esc_html($tax->label); ?></span> <span>(<?php echo esc_html($tax_name); ?>)</span></td>
@@ -306,13 +337,16 @@ class Zinn_WPAPI_Admin {
             wp_cache_delete('zinn_wpapi_meta_' . $pt_name);
         }
         
+        // Set a transient to flush rewrite rules on next page load
+        set_transient('zinn_wpapi_flush_rewrite_rules', true, 60);
+        
         wp_send_json_success();
     }
 
     public function apply_rest_toggles() {
         $options = get_option($this->option_name, []);
 
-        // Apply post type toggles
+        // Apply post type toggles - this works for custom post types registered after this hook
         foreach (['core_post_types', 'custom_post_types'] as $section) {
             if (!empty($options[$section])) {
                 foreach ($options[$section] as $pt_name => $exposed) {
@@ -350,6 +384,60 @@ class Zinn_WPAPI_Admin {
                             'single' => true,
                             'type' => 'string'
                         ]);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Modify already registered post types and taxonomies
+     * This is needed for core types that are registered before our filters run
+     */
+    public function modify_registered_post_types() {
+        $options = get_option($this->option_name, []);
+        
+        // Modify registered post types
+        global $wp_post_types;
+        
+        foreach (['core_post_types', 'custom_post_types'] as $section) {
+            if (!empty($options[$section])) {
+                foreach ($options[$section] as $pt_name => $exposed) {
+                    if (isset($wp_post_types[$pt_name])) {
+                        $wp_post_types[$pt_name]->show_in_rest = (bool)$exposed;
+                        
+                        // Set REST base if not already set and exposing to REST
+                        if ($exposed && empty($wp_post_types[$pt_name]->rest_base)) {
+                            $wp_post_types[$pt_name]->rest_base = $pt_name;
+                        }
+                        
+                        // Set REST controller if not already set and exposing to REST
+                        if ($exposed && empty($wp_post_types[$pt_name]->rest_controller_class)) {
+                            $wp_post_types[$pt_name]->rest_controller_class = 'WP_REST_Posts_Controller';
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Modify registered taxonomies
+        global $wp_taxonomies;
+        
+        foreach (['core_taxonomies', 'custom_taxonomies'] as $section) {
+            if (!empty($options[$section])) {
+                foreach ($options[$section] as $tax_name => $exposed) {
+                    if (isset($wp_taxonomies[$tax_name])) {
+                        $wp_taxonomies[$tax_name]->show_in_rest = (bool)$exposed;
+                        
+                        // Set REST base if not already set and exposing to REST
+                        if ($exposed && empty($wp_taxonomies[$tax_name]->rest_base)) {
+                            $wp_taxonomies[$tax_name]->rest_base = $tax_name;
+                        }
+                        
+                        // Set REST controller if not already set and exposing to REST
+                        if ($exposed && empty($wp_taxonomies[$tax_name]->rest_controller_class)) {
+                            $wp_taxonomies[$tax_name]->rest_controller_class = 'WP_REST_Terms_Controller';
+                        }
                     }
                 }
             }
