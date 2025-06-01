@@ -203,13 +203,13 @@ This plugin implements multiple security measures:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+We welcome contributions! Please contact us at office@zinndigital to discuss.
 
 ### Development Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/zinndigital/zinn-digital-wp-rest-api-manager.git
+git clone https://github.com/Zinn-Digital-LTD/Zinn-Digital-WP-REST-API-Manager.git
 
 # Install dependencies
 composer install
@@ -239,8 +239,8 @@ composer run-script phpcbf
 Need help? We're here for you!
 
 - 📧 **Email**: [office@zinndigital.com](mailto:office@zinndigital.com)
-- 🌐 **Website**: [zinndigital.com](https://zinndigital.com/)
-- 🛒 **Marketplace**: [zinnhub.com](https://zinnhub.com/)
+- 🌐 **Website Hosting**: [zinndigital.com](https://zinndigital.com/)
+- 🛒 **Digital Services Marketplace**: [zinnhub.com](https://zinnhub.com/)
 - 📖 **Documentation**: [View on WordPress.org](https://wordpress.org/plugins/zinn-digital-wp-rest-api-manager/)
 
 ### Reporting Issues
@@ -272,7 +272,7 @@ the Free Software Foundation; either version 2 of the License, or
 **Zinn Digital™ LTD** is a professional digital services company specializing in WordPress solutions, web hosting, and digital marketplace services.
 
 ### Our Services
-- 🌐 **Web Hosting** - Enterprise WordPress hosting solutions
+- 🌐 **Web Hosting** - Enterprise WordPress & cloud hosting solutions
 - 💻 **WordPress Development** - Custom plugins and themes
 - 🛒 **Digital Marketplace** - [ZinnHub.com](https://zinnhub.com/)
 - 🚀 **Professional Services** - Consulting and development
