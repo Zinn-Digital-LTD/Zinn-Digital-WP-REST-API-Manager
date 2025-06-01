@@ -5,169 +5,232 @@
 [![License](https://img.shields.io/badge/License-GPL%20v2%2B-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Tested up to](https://img.shields.io/badge/Tested%20up%20to-WP%206.8-brightgreen.svg)](https://wordpress.org/)
 
-> **Take complete control of your WordPress REST API exposure with a beautiful, intuitive interface.**
+> **Manage and control REST API exposure for WordPress metadata fields with complete flexibility.**
 
 ## 🎯 Overview
 
-**Zinn WP REST API Manager** gives you total control over what your WordPress site exposes in the REST API—from post types to taxonomies to custom fields (meta). Toggle REST API exposure for all your data, including fields created by any third-party plugin (like ACF, Meta Box, Pods, and more), with a single click from a modern admin panel.
+**Zinn Digital™ WP REST API Manager** gives you complete control over which custom metadata fields are exposed in your WordPress REST API responses. Perfect for headless WordPress, mobile apps, and third-party integrations.
 
-Built for agencies, developers, and site owners who want secure, modular, no-code REST API control.
+Works seamlessly with all major custom field plugins including ACF, Meta Box, Pods, Toolset, and any plugin that uses WordPress meta tables.
+
+Built for developers, agencies, and site owners who need precise control over their REST API data exposure.
 
 ---
 
 ## ✨ Features
 
-🔧 **Complete Control**
-- Instantly view all core & custom post types and taxonomies
-- See which are exposed in the REST API at a glance
-- Toggle REST API visibility for post types and taxonomies without code
+### 🎛️ **Complete Meta Control**
+- Expose custom fields from posts, pages, and custom post types
+- Include comment, user, and taxonomy term metadata
+- Universal meta detection for fields used across multiple post types
+- Granular control - select exactly which fields to expose
 
-🎛️ **Advanced Meta Management**
-- Detect all custom fields (meta)—even from third-party plugins
-- Enable/disable REST API exposure for custom fields per post type
-- Works with ACF, Meta Box, Pods, and more
+### 🔌 **Plugin Compatibility**
+- ✅ Advanced Custom Fields (ACF)
+- ✅ Meta Box
+- ✅ Pods
+- ✅ Custom Field Suite
+- ✅ Toolset Types
+- ✅ Carbon Fields
+- ✅ CMB2
+- ✅ Any plugin using WordPress meta tables
 
-🎨 **Beautiful Interface**
-- Modern dark admin interface with gold accent branding
-- Sectioned UI: Core, Custom, and Meta fields organized for clarity
-- Intuitive notices and guidance for best practices
+### 🎨 **Beautiful Admin Interface**
+- Modern dark theme with gold accent branding
+- Organized tabbed interface for different meta types
+- Bulk operations - check/uncheck all with one click
+- Intuitive field detection and display
 
-🔒 **Security First**
-- Nonces, permissions, sanitization, and escaping
-- Capability checks for all admin actions
-- Persistent settings that survive plugin updates
-
-🌐 **Enterprise Ready**
+### 🔒 **Enterprise Ready**
+- WordPress security best practices
+- Proper capability checks and nonce verification
 - Multisite compatible
-- Tested with major custom field plugins
-- Professional support from Zinn Digital team
+- Performance optimized
+- Clean, documented code
+
+### 🌐 **Developer Friendly**
+- Namespaced code (ZinnZWRAM)
+- Follows WordPress coding standards
+- Hooks and filters for extensibility
+- Comprehensive uninstall cleanup
 
 ---
 
 ## 📸 Screenshots
 
-### Core Post Types Management
-![Core Post Types](screenshot-1.png)
-*View and toggle REST API exposure for WordPress core post types*
+### Posts Meta Fields Management
+![Posts Meta Fields](screenshot-1.png)
+*Select which post meta fields to expose in the REST API*
 
-### Custom Post Types Control  
-![Custom Post Types](screenshot-2.png)
-*Manage REST API visibility for custom post types created by themes and plugins*
+### Tabbed Interface
+![Tabbed Interface](screenshot-2.png)
+*Clean, organized interface for managing all meta types*
 
-### Meta Fields & Support
-![Meta Fields](screenshot-3.png)
-*Enable REST API for custom meta fields and access built-in support*
+### Universal Meta Section
+![Universal Meta](screenshot-3.png)
+*Special section for meta keys used across multiple post types*
 
 ---
 
 ## 🚀 Installation
 
-### WordPress.org (Recommended)
-1. Go to **Plugins → Add New** in your WordPress admin
-2. Search for "Zinn WP REST API Manager" 
-3. Click **Install Now** and then **Activate**
+### WordPress Admin (Recommended)
+1. Navigate to **Plugins → Add New**
+2. Search for "Zinn Digital WP REST API Manager"
+3. Click **Install Now** then **Activate**
+4. Go to **Settings → WP REST API Manager**
 
 ### Manual Installation
-1. Download from [WordPress.org](https://wordpress.org/plugins/zinn-digital-wp-rest-api-manager/)
-2. Upload the `zinn-wp-rest-api-manager` folder to `/wp-content/plugins/`
-3. Activate the plugin through the **Plugins** menu in WordPress
+```bash
+# Download the plugin
+wget https://github.com/zinndigital/zinn-digital-wp-rest-api-manager/archive/main.zip
 
-### GitHub Installation
-1. Clone this repository:
-   ```bash
-   git clone [https://github.com/zinndigital/zinn-wp-rest-api-manager.git](https://github.com/Zinn-Digital-LTD/Zinn-Digital-WP-REST-API-Manager.git)
-   ```
-2. Upload to your WordPress `/wp-content/plugins/` directory
-3. Activate through WordPress admin
+# Unzip to plugins directory
+unzip main.zip -d /path/to/wordpress/wp-content/plugins/
+
+# Rename folder
+mv zinn-digital-wp-rest-api-manager-main zinn-digital-wp-rest-api-manager
+```
+
+### Composer
+```json
+{
+    "require": {
+        "zinndigital/wp-rest-api-manager": "^1.0"
+    }
+}
+```
 
 ---
 
 ## 🔧 Usage
 
-1. **Navigate** to **API Manager** in your WordPress admin menu
-2. **Review** the sections:
-   - **Core Post Types** - WordPress built-in post types
-   - **Custom Post Types** - Theme/plugin created post types  
-   - **Core/Custom Taxonomies** - Category, tag, and custom taxonomies
-   - **Custom Fields (Meta)** - Meta fields from any source
-3. **Toggle** REST API exposure with a single click
-4. **Refresh** your REST API endpoints to see changes
+### Basic Usage
 
-### Custom Fields Detection
-> **Note:** Custom fields will only appear if at least **one post** exists with those fields populated. Create and publish content first, then return to manage meta field exposure.
+1. **Navigate** to **Settings → WP REST API Manager**
+2. **Select** the tab for the meta type you want to configure:
+   - **Posts** - All post types including pages and custom post types
+   - **Comments** - Comment metadata
+   - **Users** - User metadata  
+   - **Terms** - Taxonomy term metadata
+3. **Check** the fields you want to expose
+4. **Save** your settings
+
+### Accessing Fields via REST API
+
+Once fields are enabled, they appear in standard REST API responses:
+
+```javascript
+// Fetch post with custom fields
+fetch('https://yoursite.com/wp-json/wp/v2/posts/123')
+  .then(response => response.json())
+  .then(post => {
+    console.log(post.custom_field_name); // Your exposed field
+  });
+```
+
+### Example Response
+```json
+{
+  "id": 123,
+  "title": "Sample Post",
+  "content": "...",
+  "custom_price": "29.99",
+  "custom_color": "blue",
+  "acf_field": "value"
+}
+```
+
+---
+
+## 🔌 Developer API
+
+### Hooks
+
+Filter which post types show meta fields:
+```php
+add_filter('zinn_zwram_post_types', function($post_types) {
+    // Remove attachment post type
+    unset($post_types['attachment']);
+    return $post_types;
+});
+```
+
+Modify detected meta keys:
+```php
+add_filter('zinn_zwram_meta_keys', function($keys, $post_type) {
+    // Add custom key
+    $keys[] = 'my_custom_key';
+    return $keys;
+}, 10, 2);
+```
+
+### Programmatic Field Registration
+
+```php
+// Register a field programmatically
+add_action('init', function() {
+    $options = get_option('zinn_zwram_options_post', []);
+    $options['zinn_zwram_field_my_field'] = 1;
+    update_option('zinn_zwram_options_post', $options);
+});
+```
 
 ---
 
 ## 📋 Requirements
 
-| Requirement | Version |
-|-------------|---------|
-| **WordPress** | 6.0+ |
-| **PHP** | 7.4+ |
-| **Tested up to** | WordPress 6.8, PHP 8.4 |
-
-### Compatible Plugins
-✅ Advanced Custom Fields (ACF)  
-✅ Meta Box  
-✅ Pods  
-✅ Custom Fields Suite  
-✅ Any plugin using WordPress standard post meta  
+| Component | Minimum | Recommended |
+|-----------|---------|-------------|
+| **PHP** | 7.4 | 8.0+ |
+| **WordPress** | 6.0 | 6.8 (latest) |
+| **MySQL** | 5.7 | 8.0+ |
+| **MariaDB** | 10.3 | 10.6+ |
 
 ---
 
-## 🔐 Security
+## 🔒 Security
 
-This plugin follows WordPress security best practices:
+This plugin implements multiple security measures:
 
-- **Nonce verification** for all AJAX requests
-- **Capability checks** (`manage_options`) for admin access
-- **Input sanitization** using `sanitize_text_field()`
-- **Output escaping** with `esc_html()`, `esc_url()`, `esc_attr()`
-- **Prepared SQL statements** for database queries
-- **Proper ABSPATH checks** in all files
-
----
-
-## 🛠️ Development
-
-### Local Development Setup
-```bash
-# Clone the repository
-git clone https://github.com/Zinn-Digital-LTD/Zinn-Digital-WP-REST-API-Manager.git
-
-# Navigate to WordPress plugins directory
-cd /path/to/wordpress/wp-content/plugins/
-
-# Create symlink with correct plugin folder name
-ln -s /path/to/Zinn-Digital-WP-REST-API-Manager zinn-digital-wp-rest-api-manager
-```
-
-### File Structure
-```
-zinn-wp-rest-api-manager/
-├── zinn-wp-rest-api-manager.php    # Main plugin file
-├── uninstall.php                   # Cleanup script
-├── readme.txt                      # WordPress.org readme
-├── screenshot-*.png                # Plugin screenshots
-├── assets/                         # CSS, JS, images
-│   ├── zinn-wpapi-admin.css       # Admin styling
-│   ├── zinn-wpapi-admin.js        # Admin JavaScript
-│   └── zinn-logo.png              # Branding
-└── inc/                           # PHP classes
-    └── class-zinn-wpapi-admin.php # Admin functionality
-```
+- ✅ **Capability Checks** - `manage_options` required for all admin actions
+- ✅ **Nonce Verification** - All forms use WordPress nonces
+- ✅ **Data Sanitization** - All input properly sanitized
+- ✅ **SQL Injection Prevention** - Prepared statements for all queries
+- ✅ **XSS Protection** - Proper output escaping throughout
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-### Guidelines
-1. Follow WordPress coding standards
-2. Add appropriate documentation
-3. Test thoroughly before submitting
-4. Include screenshots for UI changes
+### Development Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/zinndigital/zinn-digital-wp-rest-api-manager.git
+
+# Install dependencies
+composer install
+npm install
+
+# Run tests
+composer test
+npm test
+```
+
+### Coding Standards
+
+This plugin follows WordPress Coding Standards:
+
+```bash
+# Check standards
+composer run-script phpcs
+
+# Fix automatically
+composer run-script phpcbf
+```
 
 ---
 
@@ -178,31 +241,49 @@ Need help? We're here for you!
 - 📧 **Email**: [office@zinndigital.com](mailto:office@zinndigital.com)
 - 🌐 **Website**: [zinndigital.com](https://zinndigital.com/)
 - 🛒 **Marketplace**: [zinnhub.com](https://zinnhub.com/)
-- 📖 **Documentation**: [WordPress.org Plugin Page](https://wordpress.org/plugins/zinn-digital-wp-rest-api-manager/)
+- 📖 **Documentation**: [View on WordPress.org](https://wordpress.org/plugins/zinn-digital-wp-rest-api-manager/)
 
-When contacting support, please include:
-- Detailed description of the issue
-- Screenshots (if applicable)
+### Reporting Issues
+
+When reporting issues, please include:
 - WordPress version
 - PHP version
-- Active plugins list
+- Error messages (if any)
+- Steps to reproduce
+- Screenshots
 
 ---
 
 ## 📄 License
 
-This project is licensed under the **GPL v2 or later** - see the [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html) for details.
+This project is licensed under the **GPL v2 or later** - see the [LICENSE](LICENSE) file for details.
+
+```
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+```
 
 ---
 
 ## 🏢 About Zinn Digital
 
-**Zinn Digital™ LTD** is a professional digital services company, proving multiple digital solutions that solve real world problems and save you time.
+**Zinn Digital™ LTD** is a professional digital services company specializing in WordPress solutions, web hosting, and digital marketplace services.
 
 ### Our Services
-- 🌐 **Web Hosting** - Fast, reliable WordPress hosting & web hosting solutions
-- 🛒 **Digital Marketplace** - Premium frellance services, digital jobs and more
-- 🎯 **Wordpress Plugins** - Professional WordPress plugins
+- 🌐 **Web Hosting** - Enterprise WordPress hosting solutions
+- 💻 **WordPress Development** - Custom plugins and themes
+- 🛒 **Digital Marketplace** - [ZinnHub.com](https://zinnhub.com/)
+- 🚀 **Professional Services** - Consulting and development
+
+---
+
+## 🙏 Acknowledgments
+
+- WordPress Core Team for the REST API infrastructure
+- The open source community for continuous inspiration
+- Our users for valuable feedback and support
 
 ---
 
@@ -210,6 +291,6 @@ This project is licensed under the **GPL v2 or later** - see the [LICENSE](https
 
 **Made with ❤️ by [Zinn Digital™](https://zinndigital.com/)**
 
-[⚡ Zinn WebHosting](https://zinndigital.com/) • [💼 Zinn Hub Marketplace](https://zinnhub.com/)
+[⚡ Zinn WebHosting](https://zinndigital.com/) • [💼 Zinn Hub Marketplace](https://zinnhub.com/) • [📧 Contact Us](mailto:office@zinndigital.com)
 
 </div>
